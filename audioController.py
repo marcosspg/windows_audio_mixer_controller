@@ -37,12 +37,3 @@ def muteUnmute(controller):
             status = "muted";
          break;
    return status;
-      #volume = session._ctl.QueryInterface(ISimpleAudioVolume)
-     # print(dir(session._ctl));
- #     print(session._ctl.GetSessionIdentifier());
-      
-      
-   #print(session);
-   
-    # print("volume.GetMute(): %s" % volume.GetMute())
-    # volume.SetMute(1,  None)
