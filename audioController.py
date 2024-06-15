@@ -2,14 +2,17 @@
 from hashlib import sha1
 from comtypes import CLSCTX_ALL
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
+import pythoncom
 
-sessions = AudioUtilities.GetAllSessions()
+
 
 
 
 
 
 def getAudioControllers():
+   pythoncom.CoInitialize()
+   sessions = AudioUtilities.GetAllSessions()
    controllers = [];
    for session in sessions:
       controllers.append([session.__str__(), sha1(session.__str__().encode()).hexdigest(), session._ctl.QueryInterface(ISimpleAudioVolume).GetMasterVolume(), session._ctl.QueryInterface(ISimpleAudioVolume).GetMute()]);
@@ -18,6 +21,7 @@ def getAudioControllers():
 
 
 def changeControllerVolume(controller, volume):
+   sessions = AudioUtilities.GetAllSessions()
    for session in sessions:
       if session.__str__() == controller:
          session._ctl.QueryInterface(ISimpleAudioVolume).SetMasterVolume(float(volume), None);
@@ -27,6 +31,7 @@ def changeControllerVolume(controller, volume):
 
 
 def muteUnmute(controller):
+   sessions = AudioUtilities.GetAllSessions()
    status = "unmuted";
    for session in sessions:
       if session.__str__() == controller:
