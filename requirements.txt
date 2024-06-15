@@ -1,2 +1,4 @@
 pycaw
 flask
+pywin32
+comtypes
